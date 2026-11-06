@@ -3,15 +3,46 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<h2>Welcome, {{ user.first_name|default:user.username }}!</h2>
-<a href="{% url 'update_user' %}">Update your account</a>
-<ul>
-    <li>Role: {{ user.get_role_display }}</li>
-    <li>Course: {{ user.course|default:"Not set" }}</li>
-    <li>Members: {{ member_count }}</li>
-    <li>Last login: {{ user.last_login|date:"M d, Y" }}</li>
-</ul>
+<div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1">Welcome, {{ user.first_name|default:user.username }}.</h1>
+        <p class="text-secondary mb-0">Your CampusConnect account</p>
+    </div>
+    <a class="btn btn-primary" href="{% url 'update_user' %}">Edit profile</a>
+</div>
+
+<div class="row g-3">
+    <div class="col-12 col-lg-8">
+        <section class="bg-white border rounded p-3 p-md-4" aria-labelledby="profile-heading">
+            <h2 class="h5 mb-3" id="profile-heading">Profile details</h2>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item px-0 d-flex justify-content-between gap-3">
+                    <span class="text-secondary">Role</span>
+                    <span class="text-end">{{ user.get_role_display }}</span>
+                </li>
+                <li class="list-group-item px-0 d-flex justify-content-between gap-3">
+                    <span class="text-secondary">Course</span>
+                    <span class="text-end">{{ user.course|default:"Not set" }}</span>
+                </li>
+                <li class="list-group-item px-0 d-flex justify-content-between gap-3">
+                    <span class="text-secondary">Last login</span>
+                    <span class="text-end">{{ user.last_login|date:"M d, Y"|default:"Not available" }}</span>
+                </li>
+            </ul>
+        </section>
+    </div>
+    <div class="col-12 col-lg-4">
+        <section class="bg-white border rounded p-3 p-md-4 h-100" aria-labelledby="community-heading">
+            <h2 class="h5 mb-3" id="community-heading">Community</h2>
+            <p class="display-6 fw-semibold mb-0">{{ member_count }}</p>
+            <p class="text-secondary mb-0">Registered members</p>
+        </section>
+    </div>
+</div>
+
 {% if is_admin %}
-    <a href="{% url 'admin_panel' %}">Open admin panel</a>
+    <div class="mt-4">
+        <a class="btn btn-outline-secondary" href="{% url 'admin_panel' %}">Open admin panel</a>
+    </div>
 {% endif %}
 {% endblock %}
