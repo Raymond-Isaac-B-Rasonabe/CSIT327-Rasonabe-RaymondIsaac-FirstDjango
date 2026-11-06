@@ -4,6 +4,7 @@
 
 {% block content %}
 <h2>Welcome, {{ user.first_name|default:user.username }}!</h2>
+<a href="{% url 'update_user' %}">Update your account</a>
 <ul>
     <li>Role: {{ user.get_role_display }}</li>
     <li>Course: {{ user.course|default:"Not set" }}</li>
